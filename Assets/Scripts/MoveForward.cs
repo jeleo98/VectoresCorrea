@@ -6,6 +6,7 @@ public class MoveForward : MonoBehaviour
 {
     public float Speed = 2f;
     public GameObject Munition;
+    public float CameraAxisX = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,7 @@ public class MoveForward : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RotatePlayer();
         if (Input.GetKey(KeyCode.W))
         {
              MovePlayer(Vector3.forward);
@@ -46,5 +48,13 @@ public class MoveForward : MonoBehaviour
           Debug.Log("DISPARAR");
          Instantiate(Munition, transform.position, Munition.transform.rotation);
     }
-    
+
+    public void RotatePlayer()
+    {
+        CameraAxisX += Input.GetAxis("Mouse X");
+        transform.rotation = Quaternion.Euler(0, CameraAxisX, 0);
+       // Quaternion newRotation = Quaternion.Euler(0, CameraAxisX, 0);
+       // transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, 10f * Time.deltaTime);
+    }
+   
 }
